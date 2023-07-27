@@ -1,0 +1,5 @@
+/home/p7810456/p78_testing/rpi-pico/nrf24_demos/speedtest/build/elf2uf2/CMakeFiles/elf2uf2.dir
+/home/p7810456/p78_testing/rpi-pico/nrf24_demos/speedtest/build/elf2uf2/CMakeFiles/edit_cache.dir
+/home/p7810456/p78_testing/rpi-pico/nrf24_demos/speedtest/build/elf2uf2/CMakeFiles/rebuild_cache.dir
+/home/p7810456/p78_testing/rpi-pico/nrf24_demos/speedtest/build/elf2uf2/boot_uf2_headers/CMakeFiles/edit_cache.dir
+/home/p7810456/p78_testing/rpi-pico/nrf24_demos/speedtest/build/elf2uf2/boot_uf2_headers/CMakeFiles/rebuild_cache.dir

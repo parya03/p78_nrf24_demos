@@ -1,0 +1,13 @@
+# Target labels
+ PioasmBuild
+# Source files and their labels
+/home/p7810456/p78_testing/rpi-pico/nrf24_demos/speedtest/build/pico-sdk/src/rp2_common/pico_cyw43_driver/CMakeFiles/PioasmBuild
+/home/p7810456/p78_testing/rpi-pico/nrf24_demos/speedtest/build/pico-sdk/src/rp2_common/pico_cyw43_driver/CMakeFiles/PioasmBuild.rule
+/home/p7810456/p78_testing/rpi-pico/nrf24_demos/speedtest/build/pico-sdk/src/rp2_common/pico_cyw43_driver/CMakeFiles/PioasmBuild-complete.rule
+/home/p7810456/p78_testing/rpi-pico/nrf24_demos/speedtest/build/pico-sdk/src/rp2_common/pico_cyw43_driver/pioasm/src/PioasmBuild-stamp/PioasmBuild-build.rule
+/home/p7810456/p78_testing/rpi-pico/nrf24_demos/speedtest/build/pico-sdk/src/rp2_common/pico_cyw43_driver/pioasm/src/PioasmBuild-stamp/PioasmBuild-configure.rule
+/home/p7810456/p78_testing/rpi-pico/nrf24_demos/speedtest/build/pico-sdk/src/rp2_common/pico_cyw43_driver/pioasm/src/PioasmBuild-stamp/PioasmBuild-download.rule
+/home/p7810456/p78_testing/rpi-pico/nrf24_demos/speedtest/build/pico-sdk/src/rp2_common/pico_cyw43_driver/pioasm/src/PioasmBuild-stamp/PioasmBuild-install.rule
+/home/p7810456/p78_testing/rpi-pico/nrf24_demos/speedtest/build/pico-sdk/src/rp2_common/pico_cyw43_driver/pioasm/src/PioasmBuild-stamp/PioasmBuild-mkdir.rule
+/home/p7810456/p78_testing/rpi-pico/nrf24_demos/speedtest/build/pico-sdk/src/rp2_common/pico_cyw43_driver/pioasm/src/PioasmBuild-stamp/PioasmBuild-patch.rule
+/home/p7810456/p78_testing/rpi-pico/nrf24_demos/speedtest/build/pico-sdk/src/rp2_common/pico_cyw43_driver/pioasm/src/PioasmBuild-stamp/PioasmBuild-update.rule

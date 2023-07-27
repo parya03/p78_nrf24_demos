@@ -1,0 +1,25 @@
+CMakeFiles/p78_nrf.dir/home/p7810456/pico-sdk/src/rp2_common/pico_standard_link/new_delete.cpp.obj: \
+ /home/p7810456/pico-sdk/src/rp2_common/pico_standard_link/new_delete.cpp \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/c++/12.2.1/cstdlib \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/c++/12.2.1/arm-none-eabi/thumb/v6-m/nofp/bits/c++config.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/c++/12.2.1/arm-none-eabi/thumb/v6-m/nofp/bits/os_defines.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/c++/12.2.1/arm-none-eabi/thumb/v6-m/nofp/bits/cpu_defines.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/c++/12.2.1/pstl/pstl_config.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/stdlib.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/machine/ieeefp.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/_ansi.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/newlib.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/_newlib_version.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/sys/config.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/sys/features.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/lib/gcc/arm-none-eabi/12.2.1/include/stddef.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/sys/reent.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/_ansi.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/sys/_types.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/machine/_types.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/machine/_default_types.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/sys/lock.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/sys/cdefs.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/machine/stdlib.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/alloca.h \
+ /home/p7810456/arm-gnu-toolchain-12.2.mpacbti-rel1-x86_64-arm-none-eabi/arm-none-eabi/include/c++/12.2.1/bits/std_abs.h
