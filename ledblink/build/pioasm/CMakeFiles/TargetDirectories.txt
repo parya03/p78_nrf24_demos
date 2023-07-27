@@ -1,3 +1,0 @@
-/home/p7810456/p78_testing/rpi-pico/nrf24_demos/ledblink/build/pioasm/CMakeFiles/pioasm.dir
-/home/p7810456/p78_testing/rpi-pico/nrf24_demos/ledblink/build/pioasm/CMakeFiles/edit_cache.dir
-/home/p7810456/p78_testing/rpi-pico/nrf24_demos/ledblink/build/pioasm/CMakeFiles/rebuild_cache.dir
