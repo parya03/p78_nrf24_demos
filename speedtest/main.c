@@ -22,10 +22,10 @@
 // ---------------------------------
 
 // Uncomment based on device below:
-#define RPI_PICO
+// #define RPI_PICO
 // #define STM32F4
 
-#define IS_SENDER 1 // Is this MCU sender or reciever
+#define IS_SENDER 0 // Is this MCU sender or reciever
 
 // ---------------------------------
 
@@ -47,6 +47,11 @@
 
 #ifdef STM32F4
 
+#define LED_PORT GPIOG
+#define LED_PIN GPIO13
+#define CE_PORT GPIOF
+#define CE_PIN GPIO15
+
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/spi.h>
@@ -64,11 +69,23 @@ typedef struct Packet {
 // nRF24 Configs
 // ---------------------------------
 
+#ifdef RPI_PICO
 const nrf24_pin_config_t nrf_pin_config = {
     .spi_periph = PICO_DEFAULT_SPI_INSTANCE,
     .csn_pin = PICO_DEFAULT_SPI_CSN_PIN, // GPIO pin for CSN
     .ce_pin = CE_PIN // GPIO pin for CE
 };
+#endif
+
+#ifdef STM32F4
+const nrf24_pin_config_t nrf_pin_config = {
+	.spi_periph = SPI5,
+	.csn_port = GPIOF,
+	.csn_pin = GPIO6,
+	.ce_port = GPIOF,
+	.ce_pin = GPIO15,
+};
+#endif
 
 const nrf24_config_t nrf_config = {
     .role = (IS_SENDER ? NRF24_ROLE_TX : NRF24_ROLE_RX), // NRF24_ROLE_TX or NRF24_ROLE_RX
@@ -78,17 +95,6 @@ const nrf24_config_t nrf_config = {
     .rx_pipe = NRF24_PIPE_0,
     .data_rate = NRF24_DATA_RATE_2MBPS // Data rate
 };
-
-void err_handler() {
-    while (true) {
-        // uint8_t buff = 0xAA;
-        // spi_write_blocking(PICO_DEFAULT_SPI_INSTANCE, &buff, 1);
-        gpio_put(LED_PIN, 1);
-        device_agnostic_sleep(250);
-        gpio_put(LED_PIN, 0);
-        device_agnostic_sleep(250);
-    }
-}
 
 // Default packet to send
 packet_t default_packet = {
@@ -106,8 +112,6 @@ uint32_t last_packets_per_second;
 #ifdef RPI_PICO
 void mcu_init(void) {
     stdio_init_all();
-
-    printf("Starting");
 
     // const uint LED_PIN = 0;
     // gpio_init(LED_PIN);
@@ -159,7 +163,7 @@ void mcu_init(void) {
 	gpio_mode_setup(GPIOF, GPIO_MODE_AF, GPIO_PUPD_PULLDOWN, GPIO7 | GPIO8 | GPIO9);
 	gpio_set_af(GPIOF, GPIO_AF5, GPIO7 | GPIO8 | GPIO9);
 	gpio_set_output_options(GPIOF, GPIO_OTYPE_PP, GPIO_OSPEED_25MHZ, GPIO7 | GPIO9);
-	spi_reset(SPI5);
+	// spi_reset(SPI5);
 	spi_init_master(SPI5,
 		SPI_CR1_BAUDRATE_FPCLK_DIV_32,
 		SPI_CR1_CPOL_CLK_TO_0_WHEN_IDLE,
@@ -173,6 +177,12 @@ void mcu_init(void) {
 	// spi_enable_ss_output(SPI5);
 	// spi_enable_software_slave_management(SPI5);
 
+    gpio_mode_setup(GPIOF, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLDOWN, GPIO6);
+	gpio_mode_setup(GPIOF, GPIO_MODE_OUTPUT, GPIO_PUPD_NONE, GPIO15); // CE pin
+	gpio_set(GPIOF, GPIO6); // Set CS high
+	gpio_set(GPIOF, GPIO15); // Set CE high
+    gpio_set_output_options(GPIOF, GPIO_OTYPE_PP, GPIO_OSPEED_25MHZ, GPIO6);
+
 	spi_enable(SPI5);
 }
 #endif
@@ -185,6 +195,7 @@ void device_agnostic_sleep(uint32_t ms) {
     #ifdef RPI_PICO
     sleep_ms(ms);
     #endif
+
     #ifdef STM32F4
     for(int i = 0; i < (ms * 100000); i++) { // Not accurate, just gives ballpark figure
         __asm__("nop");
@@ -192,7 +203,7 @@ void device_agnostic_sleep(uint32_t ms) {
     #endif
 }
 
-void device_agnostic_gpio_put(uint8_t port, uint8_t pin, uint8_t val) {
+void device_agnostic_gpio_put(uint32_t port, uint32_t pin, uint8_t val) {
     #ifdef RPI_PICO
     gpio_put(pin, val);
     #endif
@@ -206,16 +217,50 @@ void device_agnostic_gpio_put(uint8_t port, uint8_t pin, uint8_t val) {
     #endif
 }
 
-// Timer callback for measuring packets per second
+// Timer callback    for measuring packets per second
 // Only applies to reciever side
 void measure_timer_callback(void) {
+    #ifdef RPI_PICO
     last_packets_per_second = packets;
     packets = 0;
+    printf("Role: %d\n", nrf_config.role);
     printf("Packets per second: %d\n", last_packets_per_second);
-    printf("bps: %d\n", (last_packets_per_second * 32 * 8));
+    printf("Bits/sec: %d\n", (last_packets_per_second * 32 * 8));
+    printf("Bytes/sec: %d\n", (last_packets_per_second * 32));
+    #endif
 }
 
+#ifdef RPI_PICO
+void err_handler() {
+    while (true) {
+        // uint8_t buff = 0xAA;
+        // spi_write_blocking(PICO_DEFAULT_SPI_INSTANCE, &buff, 1);
+        gpio_put(LED_PIN, 1);
+        device_agnostic_sleep(250);
+        gpio_put(LED_PIN, 0);
+        device_agnostic_sleep(250);
+    }
+}
+#endif
+
+#ifdef STM32F4
+void err_handler(void) {
+	// Blink LED
+	while(1) {
+		gpio_set(GPIOG, GPIO13);
+		for(volatile int i = 0; i < 1000000; i++);
+		gpio_clear(GPIOG, GPIO13);
+		for(volatile int i = 0; i < 1000000; i++);
+	}
+}
+#endif
+
 int main() {
+
+    // Set packet data to 0xAA - b10101010
+    for(int i = 1; i < default_packet.len; i++) {
+        default_packet.data[i] = 0xAA;
+    }
 
     mcu_init();
     
@@ -223,43 +268,57 @@ int main() {
         err_handler();
     }
 
+    // err_handler();
+
     volatile uint8_t data = 1;
     
 	device_agnostic_gpio_put(LED_PORT, LED_PIN, 1);
     device_agnostic_sleep(250);
 	device_agnostic_gpio_put(LED_PORT, LED_PIN, 0);
 
-    // Set packet data to 0xAA - b10101010
-    for(int i = 1; i < default_packet.len; i++) {
-        default_packet.data[i] = 0xAA;
-    }
+    // printf("Starting");
 
     if(IS_SENDER) {
         while(1) {
             // Check if send FIFO empty
             read_mem(NRF24_R_FIFO_STATUS, &data, 1);
-            if(!(data & 0x20)) {
+            // if(data == 0x11) {
+            //     continue;
+            // }
+            if((data & 0x20) == 0) {
                 // Space in TX FIFO
-                gpio_put(LED_PIN, 1);
+                device_agnostic_gpio_put(LED_PORT, LED_PIN, 1);
 
                 default_packet.id++;
-                write_payload(&default_packet, default_packet.len);
+                write_payload((uint8_t *)&default_packet, 32);
             }
         }
     }
+    #ifdef RPI_PICO
     else { // If receiver
         // Set up repeating timer to measure time (packets/s)
         struct repeating_timer timer;
-        add_repeating_timer_ms(1000, &measure_timer_callback, NULL, &timer);
+        add_repeating_timer_ms(1000, measure_timer_callback, NULL, &timer);
+        uint8_t led_state = 1;
+
+        data = 32;
+        uint8_t payload_data[32] = {0};
+        write_mem(NRF24_R_RX_PW_P0, &data, 1);
 
         while(1) {
             // Poll RX FIFO
             read_mem(NRF24_R_FIFO_STATUS, &data, 1);
             if(!(data & 0x01)) {
                 // Read from FIFO
-                read_payload(&data, 1);
+                device_agnostic_gpio_put(LED_PORT, LED_PIN, 1);
+                // led_state = !led_state;
+                read_payload(&payload_data, 32);
                 packets++;
+            }
+            else {
+                device_agnostic_gpio_put(LED_PORT, LED_PIN, 0);
             }
         }
     }
+    #endif
 }

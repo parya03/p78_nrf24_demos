@@ -1,3 +1,6 @@
 [submodule "p78_nrf24"]
 	path = p78_nrf24
 	url = https://github.com/parya03/p78_nrf24.git
+[submodule "libopencm3"]
+	path = libopencm3
+	url = https://github.com/libopencm3/libopencm3.git
